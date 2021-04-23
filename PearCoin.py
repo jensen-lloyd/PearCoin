@@ -1,15 +1,3 @@
-"""
-Who's probably gonna mine the coin?
-(Y) (N)
-
-Mine means, help run the blockchain network by using ur computer 
-(you dont have to do anything, ur computer just runs the app)
-miners are rewarded with PearCoins for helping out
-
-If ya wanna learn how mining works (and you can be bothered), heres a good vid
-https://www.youtube.com/watch?v=L-Qhv8kLESY
-"""
-
 import flask
 import sockets
 import datetime
