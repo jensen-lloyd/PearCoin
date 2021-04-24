@@ -1,4 +1,3 @@
-import flask
 import sockets
 import datetime
 from datetime import timezone
@@ -21,27 +20,23 @@ class Transaction():
         self.sender = sender
         self.reciever = reciever
         self.amount = amount
-        self.sender_balance = 4
-        # self.reciever_balance = 
+        #self.sender_balance = 4
+        #self.reciever_balance = 
         self.status = "Pending"
 
         if self.sender_balance - self.amount < 1:
             self.status = "Failed"
             del self
             # reject transaction
-            # also possibly send an error back to the sender
+            # need to also send an error back to the sender
 
         else:
-            self.status = "Aproved"
+            self.status = "Approved"
 
-    def __str__(self):
-        return str("Sender: %s\nReciever: %s\nAmount: %s\nStatus: %s\n" 
-            %(self.sender, self.reciever ,self.amount, self.status))
+#    def __str__(self):
+#        return str("Sender: %s\nReciever: %s\nAmount: %s\nStatus: %s\n" 
+#            %(self.sender, self.reciever ,self.amount, self.status)
 
-
-        # should also set a limit for API calls for sending/receiving, 
-        # as to not get taken offline by a malicious user spamming transactions
-        # 30 second limit???
 
 
 
