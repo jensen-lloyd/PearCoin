@@ -1,2 +1,3 @@
 PearCoin <br />
-yay
+Check out the official PearCoin Discord server: <br />
+https://discord.gg/ffw4cbqtkp
