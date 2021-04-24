@@ -87,8 +87,6 @@ class Blockchain():
 
 def main():
     test_block = Block()
-    test_transaction = Transaction("sender", "recieve", 4)
-
 
 
 if __name__ == '__main__':
