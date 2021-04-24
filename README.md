@@ -1,2 +1,2 @@
-PearCoin
+PearCoin <br />
 yay
