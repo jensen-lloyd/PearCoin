@@ -86,7 +86,7 @@ class Block():
 
 
 class Blockchain():
-    def __init__ (self)
+    def __init__ (self):
         self.chain = []
 
 

@@ -1,3 +1,2 @@
 PearCoin
-PearCoin
 yay
