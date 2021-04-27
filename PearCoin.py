@@ -49,7 +49,7 @@ class Block():
         self.data = data
         self.previous_hash = previous_hash
         self.nonce = nonce
-
+        self.hash = ""
 
 		# try:
 		# 	self.index = blockchain[-1].get('index')
@@ -74,9 +74,22 @@ class Block():
             self.nonce)
 
 
+    def mine_block(self, difficulty):
+        self.nonce = 0
+        self.difficulty = difficulty
+        while True:
+            if self.hash_block()[:difficulty] == difficulty*"0":
+                self.hash = self.hash_block()
+                break
+
+            else:
+                self.nonce +=1
+            
+
+
     def __str__(self):
-        return str("Block: %s\nTimestamp: %s\nPrevious Hash: %s\nData: %s\nNonce: %s\n" 
-            %(self.index, self.timestamp ,self.previous_hash, self.data, self.nonce))
+        return str("Block: %s\nTimestamp: %s\nPrevious Hash: %s\nData: %s\nNonce: %s\nHash: %s\n" 
+            %(self.index, self.timestamp ,self.previous_hash, self.data, self.nonce, self.hash))
 
 
 
@@ -85,9 +98,10 @@ class Blockchain():
         self.chain = []
 
 
+
 def main():
     test_block = Block()
-
+    print(test_block)
 
 if __name__ == '__main__':
     main()
