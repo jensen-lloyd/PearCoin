@@ -10,7 +10,7 @@ def hash(*args):
     for arg in args:
         hash += str(arg)
 
-    return sha256(hash.encode('utf-8')).hexdigest()
+    return str(sha256(hash.encode('utf-8')).hexdigest())
 
 
 class Transaction():
@@ -49,7 +49,7 @@ class Block():
         self.data = data
         self.previous_hash = previous_hash
         self.nonce = nonce
-        self.hash = ""
+        self.hash = ''
 
 		# try:
 		# 	self.index = blockchain[-1].get('index')
@@ -57,16 +57,11 @@ class Block():
 		# 	self.index = 0
 
 		# self.timestamp = datetime.datetime.now(timezone.utc)
-		# self.data = data
-
-		# try:
-		# 	self.previous_hash = blockchain[-1].get('hash')
-		# except:
-		# 	self.previous_hash = "0" * 64
+		# self.data = data # try: # 	self.previous_hash = blockchain[-1].get('hash') # except: # 	self.previous_hash = "0" * 64
 
 
     def hash_block(self):
-        self.hash = hash(
+        return hash(
             self.index, 
             self.timestamp, 
             self.data, 
@@ -77,14 +72,14 @@ class Block():
     def mine_block(self, difficulty):
         self.nonce = 0
         self.difficulty = difficulty
-        while True:
-            if self.hash_block()[:difficulty] == difficulty*"0":
-                self.hash = self.hash_block()
-                break
+        self.hash_block()
 
-            else:
+        while self.hash[:difficulty] != difficulty * "0":
+                self.hash = self.hash_block()
+                print("hash: " + self.hash)
+
                 self.nonce +=1
-            
+                print("nonce: " + str( self.nonce))
 
 
     def __str__(self):
@@ -101,7 +96,10 @@ class Blockchain():
 
 def main():
     test_block = Block()
+    test_block.mine_block(1)
     print(test_block)
+
+
 
 if __name__ == '__main__':
     main()
