@@ -1,4 +1,4 @@
-import sockets
+import socket
 import datetime
 from datetime import timezone
 from hashlib import sha256
@@ -57,7 +57,11 @@ class Block():
 		# 	self.index = 0
 
 		# self.timestamp = datetime.datetime.now(timezone.utc)
-		# self.data = data # try: # 	self.previous_hash = blockchain[-1].get('hash') # except: # 	self.previous_hash = "0" * 64
+		# self.data = data 
+                # try: 
+                # 	self.previous_hash = blockchain[-1].get('hash') 
+                # except: 
+                # 	self.previous_hash = "0" * 64
 
 
     def hash_block(self):
@@ -96,7 +100,7 @@ class Blockchain():
 
 def main():
     test_block = Block()
-    test_block.mine_block(1)
+    test_block.mine_block(10)
     print(test_block)
 
 
