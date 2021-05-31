@@ -1,8 +1,7 @@
 import socket
 import datetime
 from datetime import timezone
-from hashlib import sha256
-
+import hashlib
 
 
 def hash(*args):
@@ -10,7 +9,7 @@ def hash(*args):
     for arg in args:
         hash += str(arg)
 
-    return str(sha256(hash.encode('utf-8')).hexdigest())
+    return str(hashlib.sha512(hash.encode('utf-8')).hexdigest())
 
 
 class Transaction():
@@ -100,7 +99,7 @@ class Blockchain():
 
 def main():
     test_block = Block()
-    test_block.mine_block(10)
+    test_block.mine_block(4)
     print(test_block)
 
 
