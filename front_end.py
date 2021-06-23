@@ -7,11 +7,17 @@ def makeTransaction():
     fetchedReciever = recieverEntry.get()
     fetchedAmount = amountEntry.get()
     if int(fetchedAmount) <= currentBalance:
-        messagebox.showinfo("TRANSACTION SUCCESSFUL", "Transaction made to "+fetchedReciever+" of amount "+str(fetchedAmount))
+        messagebox.showinfo("TRANSACTION SUCCESSFUL", 
+            "Transaction made to",
+            fetchedReciever,
+            "of amount "+str(fetchedAmount))
     else:
-        messagebox.showinfo("TRANSACTION FAILED", "The user has attempted to transact an amount more than they have!")
+        messagebox.showinfo("TRANSACTION FAILED", 
+            "The user has attempted to transact an amount more than they have!")
+
     output1 = tkinter.Label(root, text="The intended reciever is: "+ fetchedReciever)
     canvas.create_window(200, 230, window = output1)
+
 root = tkinter.Tk()
 canvas = tkinter.Canvas(root, width = 500, height = 400)
 canvas.pack()
@@ -35,18 +41,7 @@ canvas.create_window(80, 100, window=transactionAmountLabel)
 canvas.create_window(200, 100, window=amountEntry)
 canvas.create_window(80, 150, window=createTransButt)
 canvas.create_window(400, 25, window=currentBalanceLabel)
+
+
 #Transaction gui
-
-
-
-    
-
-
-
-
-
-
 root.mainloop()
-
-
-
