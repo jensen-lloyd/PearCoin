@@ -34,13 +34,13 @@ title.pack()
 createTransButt = tkinter.Button(root, text="Create Transaction", command=makeTransaction)
 
 #Positioning the labels and entry boxes and button
-canvas.create_window(200, 50, window=recieverEntry)
-canvas.create_window(180, 25, window=title)
-canvas.create_window(80, 50, window=transactionLabel)
-canvas.create_window(80, 100, window=transactionAmountLabel)
-canvas.create_window(200, 100, window=amountEntry)
-canvas.create_window(80, 150, window=createTransButt)
-canvas.create_window(400, 25, window=currentBalanceLabel)
+canvas.create_window(200, 50, window = recieverEntry)
+canvas.create_window(180, 25, window = title)
+canvas.create_window(80, 50, window = transactionLabel)
+canvas.create_window(80, 100, window = transactionAmountLabel)
+canvas.create_window(200, 100, window = amountEntry)
+canvas.create_window(80, 150, window = createTransButt)
+canvas.create_window(400, 25, window = currentBalanceLabel)
 
 
 #Transaction gui
