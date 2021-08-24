@@ -1,5 +1,5 @@
-import socket
 import sockets
+
 import datetime
 from datetime import timezone
 import hashlib
@@ -10,7 +10,7 @@ def hash(*args):
     for arg in args:
         hash += str(arg)
 
-    return str(hashlib.sha512(hash.encode('utf-8')).hexdigest())
+    return str(hashlib.sha256(hash.encode('utf-8')).hexdigest())
 
 
 class Transaction():
