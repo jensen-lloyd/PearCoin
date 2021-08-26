@@ -45,13 +45,16 @@ def verify_transaction(transaction):
     new_balances['receiver'] = "receiver_new_balance"
 
     #If anything is wrong at any point:
-        #return ""
+        #return
 
 
     #If everything at the end if fine:
     transaction['new_balances'] = new_balances
-    transaction = json.dumps(transaction, indent=4)
-    return transaction
+    # print(transaction = json.dumps(transaction, indent=4))
+    transaction = json.dumps(transaction)
+
+
+    pending_transactions.append(transaction)
 
 
 
@@ -60,8 +63,11 @@ def verify_transaction(transaction):
 taking in, validating and adding transactions from half_nodes or blocks from full_nodes)'''
 def main():
     while 2+2 == 4:
-        print(verify_transaction(networking.listen_half_node()))
-        sleep(500)
+        verify_transaction(networking.listen_half_node())
+        print(pending_transactions[])
+        sleep(1)
+
+
 
 
 
