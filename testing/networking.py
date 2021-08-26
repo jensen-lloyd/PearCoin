@@ -47,7 +47,8 @@ def listen_half_node():
     transaction['transaction'] = transaction_details
     transaction['signature'] = transaction_signature
 
-    return(json.dumps(transaction, indent=4))
+    return(transaction)
+
 
 
 

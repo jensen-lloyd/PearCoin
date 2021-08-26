@@ -1,31 +1,48 @@
 import hashlib
 import networking
-import json
+import time
 from time import sleep
 
 
-import datetime
-from datetime import timezone
-import time
 
-
-
-
-#List of transactions that have been verified and are waiting to be added to block
-pending_transactions = []
 
 #Maximum amount of time (in minutes) that the oldest block will have to wait before being added to a block
 max_transaction_time = 0.1
 
+#Mining difficulty
+difficulty = 1
+
+
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+DO NOT CHANGE THESE VARIABLES!!!
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 #Time oldest transaction has been waiting to be added to block
+#(starts at 0, and a Unix-time replaces it once a transaction is added)
 transaction_countdown = 0
 
-#Mining difficulty
-difficulty = 3
+#List of transactions that have been verified and are waiting to be added to block
+pending_transactions = []
 
 #Blockchain object/list
 blockchain = []
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
+genesis = {'block_data': {'index': 0,
+                                  'previous_hash': "0"*64
+                                 }, 
+                   'transactions': {"This is the genesis block of PearCoin! This currency has a fixed value of 1 (one) Australian Dollar; no more, and no less."
+                                 }, 
+                   'block_hash': {'nonce': "",
+                                  'hash': "0fcc64eda3ca6a55fd06fb0676540e68af26da8f553afeb9e6acc7392ac85de5"
+                                }}
+
+
+blockchain.append(genesis)
 
 
 
@@ -44,7 +61,7 @@ def hash(*args):
 sender's signature is correct, a suitable fee is attached'''
 def verify_transaction(transaction):
     
-    transaction = json.loads(transaction)
+    # transaction = json.loads(transaction)
     
 
     new_balances = {}
@@ -63,9 +80,6 @@ def verify_transaction(transaction):
 
     #If everything at the end if fine:
     transaction['new_balances'] = new_balances
-    # print(transaction = json.dumps(transaction, indent=4))
-    transaction = json.dumps(transaction)
-
 
     pending_transactions.append(transaction)
 
@@ -94,15 +108,9 @@ class Block():
         self.transactions = {}
         self.block_hash = {}
 
-        try:
-            self.block_data['index'] = int((blockchain[-1])['index']) + 1
-        except:
-            self.block_data['index'] = 0
 
-        try:
-            self.block_data['previous_hash'] = (blockchain[-1])['hash']
-        except:
-            self.block_data['previous_hash'] = "0" * 64
+        self.block_data['index'] = int(blockchain[-1]['block_data']['index']) + 1
+        self.block_data['previous_hash'] = blockchain[-1]['block_hash']
 
 
         self.transactions = data
@@ -115,19 +123,20 @@ class Block():
         self.block_hash['hash'] = hash(str(self.block['block_data']) + str(self.block['transactions']))
         while self.block_hash['hash'][:difficulty] != difficulty * "0":
                 
-                self.block_hash['hash'] = hash(str(self.block['block_data']) + str(self.block['transactions']) + str(self.block_hash['nonce']))
+                self.block_hash['hash'] = hash(str(self.block['block_data']) 
+                                            + str(self.block['transactions']) 
+                                            + str(self.block_hash['nonce']))
 
-                print("hash: " + self.block_hash['hash'])
+                # print("nonce: " + str(self.block_hash['nonce']) + (20 * " ") + "hash: " + self.block_hash['hash'], end='\r')
 
                 self.block_hash['nonce'] +=1
-                print("nonce: " + str(self.block_hash['nonce']))
 
 
 
         self.block['hash'] = self.block_hash 
 
-        return(json.dumps(self.block, indent=4))
-
+        # return(json.dumps(self.block, indent=4))
+        return(self.block)
 
 
 
@@ -141,24 +150,29 @@ def main():
     while 2+2 == 4:
 
         verify_transaction(networking.listen_half_node())
-        sleep(10)
+        
+
+        sleep(5)
 
 
         if (transaction_countdown) + int(max_transaction_time * 60) <= time.time():
-            #create block
+            #create block object
             block = Block()
 
-            print(Block().create_and_mine())
+            #Fill block object with data and calculate hash
+            # block.create_and_mine()
 
-            #mine block
+            #add block to blockchain and delete block
+            blockchain.append(block.create_and_mine())
+
+            del block
+
+            # print((blockchain[0])['block_data'])
+            print(str(blockchain[-1]) + "\n\n\n\n\n")
+            print(blockchain[0]['block_hash']['hash'])
 
 
-            #print block
-
-            #add block to blockchain
-
-
-        sleep(5)
+        sleep(1)
 
 
 
