@@ -1,5 +1,9 @@
-import tkinter
-from tkinter import messagebox
+'''import tkinter
+from tkinter import messagebox'''
+import json
+import hashlib
+
+'''
 #Current balance is for demonstration purposes
 currentBalance = 0
 
@@ -45,3 +49,39 @@ canvas.create_window(400, 25, window = currentBalanceLabel)
 
 #Transaction gui
 root.mainloop()
+
+
+
+
+'''
+
+#Function for easy hashing of any object or string
+def hash(*args):
+    hash = ""
+    for arg in args:
+        hash += str(arg)
+
+    return str(hashlib.sha256(hash.encode('utf-8')).hexdigest())
+
+
+
+def create_transaction(sender, receiver, amount):
+
+    transaction_details = {}
+    transaction_signature = {}
+    transaction = {}
+
+    transaction_details['sender'] = 'sender'
+    transaction_details['receiver'] = 'receiver'
+    transaction_details['amount'] = 1
+    transaction_details['sender_new_balance'] = 'sender_new_balance'
+    transaction_details['receiver_new_balance'] = 'receiver_new_balance'
+    
+    transaction_signature['signature'] = hash(transaction_details)
+
+    transaction['transaction'] = transaction_details
+    transaction['signature'] = transaction_signature
+
+    return(json.dumps(transaction, indent=4))
+
+print(create_transaction('sender', 'receiver', 1))

@@ -1,9 +1,28 @@
 import sockets
 
 
+#Only here for testing, will remove later
+import hashlib
+import json
+
 
 host = []
 port = "1234"
+
+
+
+
+
+#Function for easy hashing of any object or string
+def hash(*args):
+    hash = ""
+    for arg in args:
+        hash += str(arg)
+
+    return str(hashlib.sha256(hash.encode('utf-8')).hexdigest())
+
+
+
 
 
 
@@ -15,7 +34,20 @@ def listen():
 
 #send through all transmissions that are coming from half_nodes (only send one at a time, and remove from queue when forwarded to main program)
 def listen_half_node():
-    pass
+
+    transaction_details = {}
+    transaction_signature = {}
+    transaction = {}
+
+    transaction_details['sender'] = 'sender'
+    transaction_details['receiver'] = 'receiver'
+    transaction_details['amount'] = 1
+    transaction_signature['signature'] = hash(transaction_details)
+
+    transaction['transaction'] = transaction_details
+    transaction['signature'] = transaction_signature
+
+    return(json.dumps(transaction, indent=4))
 
 
 
