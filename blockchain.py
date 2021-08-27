@@ -5,12 +5,13 @@ from time import sleep
 
 
 
+#Mining difficulty
+difficulty = 5
+print("Difficulty: " + str(difficulty) + "\n")
 
 #Maximum amount of time (in minutes) that the oldest block will have to wait before being added to a block
-max_transaction_time = 5
-
-#Mining difficulty
-difficulty = 1
+max_transaction_time = 1
+print("Max transaction wait time: " + str(max_transaction_time) + "\n\n\n")
 
 
 
@@ -171,7 +172,7 @@ def main():
         verify_transaction(networking.listen_half_node())
 
 
-        if (transaction_countdown) + int(max_transaction_time * 60) <= time.time():
+        if (transaction_countdown) + int(max_transaction_time * 60) <= time.time() or len(pending_transactions) >= 5:
             #create block object
             block = Block()
 
