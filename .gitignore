@@ -2,3 +2,4 @@
 *.pyc
 .gitignore
 testing/__pycache__/*
+*.cpython-38*

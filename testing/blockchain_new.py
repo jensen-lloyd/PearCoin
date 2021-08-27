@@ -7,7 +7,7 @@ from time import sleep
 
 
 #Maximum amount of time (in minutes) that the oldest block will have to wait before being added to a block
-max_transaction_time = 0.1
+max_transaction_time = 0.001
 
 #Mining difficulty
 difficulty = 1
@@ -32,17 +32,26 @@ blockchain = []
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 
-genesis = {'block_data': {'index': 0,
-                                  'previous_hash': "0"*64
-                                 }, 
-                   'transactions': {"This is the genesis block of PearCoin! This currency has a fixed value of 1 (one) Australian Dollar; no more, and no less."
-                                 }, 
-                   'block_hash': {'nonce': "",
-                                  'hash': "0fcc64eda3ca6a55fd06fb0676540e68af26da8f553afeb9e6acc7392ac85de5"
-                                }}
+genesis = {
+            'block_data':   {
+                                'index': 0,
+                                'previous_hash': "0"*64
+                            }, 
+           'transactions': 
+                            {
+                                "This is the genesis block of PearCoin! This currency has a fixed value of 1 (one) Australian Dollar; no more, and no less."
+                            },
+           'block_hash': 
+                            {
+                                'nonce': "",
+                                'hash': "0fcc64eda3ca6a55fd06fb0676540e68af26da8f553afeb9e6acc7392ac85de5"
+                            }
+            }
 
 
 blockchain.append(genesis)
+
+
 
 
 
@@ -110,7 +119,9 @@ class Block():
 
 
         self.block_data['index'] = int(blockchain[-1]['block_data']['index']) + 1
-        self.block_data['previous_hash'] = blockchain[-1]['block_hash']
+        self.block_data['previous_hash'] = blockchain[-1]['block_hash']['hash']
+        # self.block_data['previous_hash'] = blockchain[-1]
+
 
 
         self.transactions = data
@@ -133,9 +144,13 @@ class Block():
 
 
 
-        self.block['hash'] = self.block_hash 
+        self.block['block_hash'] = self.block_hash 
 
         # return(json.dumps(self.block, indent=4))
+
+        global pending_transactions 
+        pending_transactions = []
+
         return(self.block)
 
 
@@ -147,12 +162,15 @@ class Block():
 taking in, validating and adding transactions from half_nodes or blocks from full_nodes)'''
 def main():
 
+
+    print(str(blockchain[-1]) + "\n\n\n")
+
     while 2+2 == 4:
 
         verify_transaction(networking.listen_half_node())
         
 
-        sleep(5)
+        # sleep(5)
 
 
         if (transaction_countdown) + int(max_transaction_time * 60) <= time.time():
@@ -160,19 +178,16 @@ def main():
             block = Block()
 
             #Fill block object with data and calculate hash
-            # block.create_and_mine()
-
             #add block to blockchain and delete block
             blockchain.append(block.create_and_mine())
 
             del block
 
-            # print((blockchain[0])['block_data'])
-            print(str(blockchain[-1]) + "\n\n\n\n\n")
-            print(blockchain[0]['block_hash']['hash'])
+            print(str(blockchain[-1]) + "\n\n\n")
 
 
-        sleep(1)
+
+        sleep(10)
 
 
 
