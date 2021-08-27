@@ -7,10 +7,10 @@ from time import sleep
 
 
 #Maximum amount of time (in minutes) that the oldest block will have to wait before being added to a block
-max_transaction_time = 0.001
+max_transaction_time = 5
 
 #Mining difficulty
-difficulty = 3
+difficulty = 1
 
 
 
@@ -165,12 +165,10 @@ def main():
 
     print(str(blockchain[-1]) + "\n\n\n")
 
+
     while 2+2 == 4:
 
         verify_transaction(networking.listen_half_node())
-        
-
-        # sleep(5)
 
 
         if (transaction_countdown) + int(max_transaction_time * 60) <= time.time():
@@ -187,7 +185,7 @@ def main():
 
 
 
-        sleep(10)
+
 
 
 
