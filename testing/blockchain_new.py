@@ -10,7 +10,7 @@ from time import sleep
 max_transaction_time = 0.001
 
 #Mining difficulty
-difficulty = 1
+difficulty = 3
 
 
 
