@@ -33,21 +33,23 @@ blockchain = []
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 
+
 genesis = {
             'block_data':   {
                                 'index': 0,
                                 'previous_hash': "0"*64
                             }, 
            'transactions': 
-                            {
+                            [
                                 "This is the genesis block of PearCoin! This currency has a fixed value of 1 (one) Australian Dollar; no more, and no less."
-                            },
+                            ],
            'block_hash': 
                             {
                                 'nonce': "",
                                 'hash': "0fcc64eda3ca6a55fd06fb0676540e68af26da8f553afeb9e6acc7392ac85de5"
                             }
             }
+
 
 
 blockchain.append(genesis)
@@ -70,26 +72,33 @@ def hash(*args):
 '''Check that the fields are filled, sender has sufficient funds, 
 sender's signature is correct, a suitable fee is attached'''
 def verify_transaction(transaction):
-    
-    # transaction = json.loads(transaction)
-    
+
 
     new_balances = {}
-    #Search for most recent transaction involving the sender - check existence & enough funds
-    #Check that the signature matches the hash + public key of sender
-    #If sender exists and has enough funds, calculate and add new_balance
-    new_balances['sender'] = "sender_new_balance"
 
-    #Search for most recent transaction involving the receiver - check existence
-    #If receiver exists, caluclate and add new_balance
-    new_balances['receiver'] = "receiver_new_balance"
+    for x in range(len(blockchain),0 ,-1):
+        for y in range(len(blockchain['transactions'])):
+            #if statement to check if the sender's address is in the block as sender
+            #if statement to check if the sender's address is in the block as receiver
+            #if the address is not found: break
+            #if the address is found, use it to check the signature of the transaction
+            #if the sender does not have adequate funds: break
 
-    #If anything is wrong at any point:
-        #return
+            #if everything is fine:
+
+                # new_balances['sender'] = "sender_new_balance"
+
+                #find the balance of the sender and calculate their new balance
+                # for x in range(len(blockchain),0 ,-1):
+                #     for y in range(len(blockchain['transactions'])):
+
+                #         find the balance of the receiver and calculate their new balance
+                #         if the address was not found, assume the balance is 0, and then add the transaction amount
+                #         new_balances['receiver'] = "receiver_new_balance"
+
+                # transaction['new_balances'] = new_balances
 
 
-    #If everything at the end if fine:
-    transaction['new_balances'] = new_balances
 
     pending_transactions.append(transaction)
 
@@ -115,13 +124,12 @@ class Block():
 
         self.block = {}
         self.block_data = {}
-        self.transactions = {}
+        self.transactions = []
         self.block_hash = {}
 
 
         self.block_data['index'] = int(blockchain[-1]['block_data']['index']) + 1
         self.block_data['previous_hash'] = blockchain[-1]['block_hash']['hash']
-        # self.block_data['previous_hash'] = blockchain[-1]
 
 
 
@@ -183,7 +191,7 @@ def main():
             del block
 
             print(str(blockchain[-1]) + "\n\n\n")
-
+            # print(str(blockchain[-1]["transactions"][0]['new_balances']['sender']) + "\n\n\n")
 
 
 
