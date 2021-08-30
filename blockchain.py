@@ -2,6 +2,7 @@ import hashlib
 import networking
 import time
 from time import sleep
+import ecdsa
 
 
 
